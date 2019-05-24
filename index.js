@@ -25,4 +25,19 @@ app.use(express.json());
 app.use(express.static("public"));
 
 
-mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/Scraper", { useNewUrlParser: true });
+
+
+app.get('/scraper', function(req, res){
+  axios.get('https://www.usatoday.com').then(function(response){
+    var $ = cheerio.load(response.data);
+
+    $('a.hgfm-link').each(function(i, element){
+      var 
+    })
+  })
+})
+
+app.listen(PORT, function() {
+  console.log(`App running on port ${PORT}`);
+})
