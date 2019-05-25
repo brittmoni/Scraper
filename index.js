@@ -29,14 +29,29 @@ mongoose.connect("mongodb://localhost/Scraper", { useNewUrlParser: true });
 
 
 app.get('/scraper', function(req, res){
-  axios.get('https://www.usatoday.com').then(function(response){
+  axios.get('https://www.huffpost.com').then(function(response){
     var $ = cheerio.load(response.data);
 
-    $('a.hgfm-link').each(function(i, element){
-      var 
-    })
-  })
-})
+    $('div.card card--media-left').each(function(i, element){
+      var result = {};
+
+      result.headline = $(this).children('a')
+        .text();
+      result.summary = $(this).children('div')
+        .children('div.card__headlines')
+        .children('div.card__description')
+        .children('a').text();
+      result.link = $(this).children('a')
+        .attr('href');
+
+      db.Articles.create(result).then(function(dbArticles) {
+        console.log(dbArticles);
+      }).catch(function(err){
+        console.log(err);
+      });
+    });
+  });
+});
 
 app.listen(PORT, function() {
   console.log(`App running on port ${PORT}`);
