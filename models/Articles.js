@@ -1,11 +1,3 @@
-import { model } from "mongoose";
-
-import { Schema } from "mongoose";
-
-import { type } from "os";
-
-import { truncate } from "fs";
-
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;

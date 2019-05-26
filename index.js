@@ -50,8 +50,19 @@ app.get('/scraper', function(req, res){
         console.log(err);
       });
     });
+    res.send('Done');
   });
 });
+
+app.get('/articles', function(req, res){
+  db.Articles.find({}).then(function(dbArticle) {
+    res.json(dbArticle);
+  }).catch(function(err){
+    res.json(err);
+  });
+});
+
+
 
 app.listen(PORT, function() {
   console.log(`App running on port ${PORT}`);
