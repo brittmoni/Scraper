@@ -32,7 +32,7 @@ app.get('/scraper', function(req, res){
   axios.get('https://www.huffpost.com').then(function(response){
     var $ = cheerio.load(response.data);
 
-    $('div.card card--media-left').each(function(i, element){
+    $('section.css-15zaaaz eq74mwp0 gtm-tagged').each(function(i, element){
       var result = {};
 
       result.headline = $(this).children('a')
