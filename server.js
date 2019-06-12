@@ -32,23 +32,27 @@ app.get('/scraper', function(req, res){
   axios.get('https://www.huffpost.com').then(function(response){
     var $ = cheerio.load(response.data);
 
-    $('section.css-15zaaaz eq74mwp0 gtm-tagged').each(function(i, element){
+    // console.log(response.data);
+
+    $('.card card--media-left card--standard card--twilight js-card yr-card').each(function(i, element){
       var result = {};
 
       result.headline = $(this).children('a')
         .text();
       result.summary = $(this).children('div')
-        .children('div.card__headlines')
-        .children('div.card__description')
+        .children('.card__headline')
+        .children('.card__description js-card-headline yr-card-description')
         .children('a').text();
       result.link = $(this).children('a')
         .attr('href');
 
-      db.Articles.create(result).then(function(dbArticles) {
-        console.log(dbArticles);
-      }).catch(function(err){
-        console.log(err);
-      });
+        console.log(result);
+
+    //   db.Articles.create(result).then(function(dbArticles) {
+    //     console.log(dbArticles);
+    //   }).catch(function(err){
+    //     console.log(err);
+    //   });
     });
     res.send('Done');
   });
