@@ -48,11 +48,13 @@ app.get('/scraper', function(req, res){
         .children('a')
         .attr('href');
 
-      db.Articles.create(result).then(function(dbArticles) {
-        console.log(dbArticles);
-      }).catch(function(err){
-        console.log(err);
-      });
+        console.log(result);
+
+    //   db.Articles.create(result).then(function(dbArticles) {
+    //     console.log(dbArticles);
+    //   }).catch(function(err){
+    //     console.log(err);
+    //   });
     });
     res.send('Done');
   });
