@@ -32,16 +32,20 @@ app.get('/scraper', function(req, res){
   axios.get('https://www.huffpost.com').then(function(response){
     var $ = cheerio.load(response.data);
 
-    $('div.card card--media-left').each(function(i, element){
+    $('div.card__content').each(function(i, element){
       var result = {};
 
-      result.headline = $(this).children('a')
+      result.headline = $(this)
+        .children('div.card__headline')
+        .children('a')
         .text();
-      result.summary = $(this).children('div')
-        .children('div.card__headlines')
-        .children('div.card__description')
-        .children('a').text();
-      result.link = $(this).children('a')
+      result.summary = $(this)
+        .children('div.card__description.js-card-headline.yr-card-description')
+        .children('a')
+        .text();
+      result.link = $(this)
+        .children('div.card__headline')
+        .children('a')
         .attr('href');
 
       db.Articles.create(result).then(function(dbArticles) {
